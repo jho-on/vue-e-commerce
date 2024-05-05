@@ -1,0 +1,29 @@
+:root{
+    --backgroundColor: #fcfaf9;
+    --textColor: #333333;
+    --detailsColor: #48e5c2;
+}
+
+*{
+    box-sizing: border-box;
+    font-size: 20px;
+    
+}
+
+body{
+    margin: 0;
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+}
+
+.btn{
+    width: 80px;
+    height: 40px;
+    background-color: var(--detailsColor);
+    border: 1px solid var(--textColor);
+    color: var(--textColor);
+}
+
+.pill{
+    border-radius: 50px;
+}
