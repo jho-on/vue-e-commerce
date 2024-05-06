@@ -9,7 +9,6 @@
         <nav class="navBar">
             <RouterLink to="/">Home</RouterLink>
             <RouterLink :to="{ name: 'Products' }">Products</RouterLink>
-            <RouterLink :to="{ name: 'Contact' }">Contact</RouterLink>
         </nav>
         <button class="btn pill login"> Login </button>
     </header>
