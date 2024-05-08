@@ -40,11 +40,10 @@
 
 </template>
 
-<script>
+<script >
     import { ref, watchEffect } from "vue"
 
     export default {
-        name: 'Products',
         setup(){
             const productName = ref("")
             const productCategory = ref("")
@@ -52,11 +51,11 @@
             const productClicked = ref()
 
             const productImageId = ref(0)
-
+            
             
             const fetchData = async () => {
                 try{
-                    const response = await fetch ("https://dummyjson.com/products/search?q=" + String(productName.value))
+                    const response = await fetch ("https://dummyjson.com/products/search?q=" + String(productName.value) + "&select=title,price,description,images,thumbnail,rating")
 
                     if(!response.ok){
                         throw new Error("Could not fetch")
@@ -88,8 +87,9 @@
                     productImageId.value += 1
                 }
             }
-            const addToCart = () => {
 
+            const addToCart = () => {
+                console.log(productClicked.value)
             }
 
             watchEffect(() =>{
@@ -97,7 +97,6 @@
                     fetchData()
                 }
             })
-
 
 
             return {productName, addToCart, previousImage, nextImage, productCategory, productImageId, productsData, productClicked, handleProductClick}

@@ -1,15 +1,20 @@
 <template>
     <Header />
-    <RouterView />
+    <RouterView/>
 </template>
 
 
 
 <script setup>
-import {RouterView} from 'vue-router'
-import Header from './components/Header.vue'
+    import { RouterView } from 'vue-router';
+    import Header from './components/Header.vue';
+    import './assets/main.scss';
+    import {ref} from "vue";
+    const cart = ref();
 
-import './assets/main.scss'
+    function handleAddCart(product){
+        console.log(product)
+    }
 </script>
 
 
