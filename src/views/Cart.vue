@@ -1,13 +1,109 @@
-<template>
-  
+<template> 
+    <div class="wrapper">
+        <div class="productList">
+            <div class="product" v-for="product in productsOnCart" :key="product">
+                <img :src="product.thumbnail">
+                <div>
+                    <h2>{{product.title}}</h2>
+                    <p>$ {{ product.price }}</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="purchaseSummary">
+            <h1>Payment</h1>
+            <h3 v-for="product in productsOnCart" :key="product.title">
+                {{product.title}} -> $ {{product.price}}
+            </h3>
+            <h2>Total: $ {{ purchasePrice }}</h2>
+        </div>
+    </div>
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
+    props: ['productList'],
+    emits: ['addCart'],
+    setup(props, emits){
+        const productsOnCart = ref(props.productList)
+        const purchasePrice = ref(0)
 
+
+        productsOnCart.value.forEach(product => {
+            purchasePrice.value += product.price
+        });
+
+
+        return { productsOnCart, purchasePrice }
+    }
 }
 </script>
 
-<style>
+<style lang="scss" scopped>
+    .wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .productList{
+        width: calc(70% - 20px);
+        max-width: 900px;
+        background-color: var(--textColor);
+        margin: 10px;
+        padding: 5px 0px;
 
+        .product{
+            display: flex;
+            flex-direction: row;
+            background-color: var(--backgroundColor);
+            margin: 5px 10px;
+            border: 1px solid var(--detailsColor);
+            
+            div{
+                width: 100%;
+                
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                h2{
+                    text-transform: uppercase;
+                    font-size: 25px;
+                    text-align: left;
+                    padding: 10px 10px;
+                    margin: 0;
+                }
+                p{
+                    padding: 10px 15px;
+                    text-align: right;
+                    margin: 0;
+                }
+            }
+        
+            img{
+                aspect-ratio: 1 / 1;
+                width: 150px;
+                height: 150px;
+                padding: 5px;
+            }   
+
+            &+.product{
+                margin-top: 10px;
+            }
+        }
+    }
+    .purchaseSummary{
+        background-color: var(--textColor);
+        color: var(--detailsColor);
+        width: calc(30% - 20px);
+        max-width: 400px;
+        margin: 10px;
+        text-align: center;
+        height: fit-content;
+        h1{
+            text-transform: uppercase;
+        }
+    }
 </style>

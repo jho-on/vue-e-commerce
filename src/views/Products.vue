@@ -44,14 +44,15 @@
     import { ref, watchEffect } from "vue"
 
     export default {
-        setup(){
+        emits: ['addCart'],
+        props: ['productList'],
+        setup(props, { emit }){
+
             const productName = ref("")
             const productCategory = ref("")
             const productsData = ref([])
             const productClicked = ref()
-
             const productImageId = ref(0)
-            
             
             const fetchData = async () => {
                 try{
@@ -89,7 +90,7 @@
             }
 
             const addToCart = () => {
-                console.log(productClicked.value)
+                emit('addCart', productClicked.value)
             }
 
             watchEffect(() =>{
@@ -126,14 +127,14 @@
             position: absolute;
             top: 80px;
             max-width: fit-content;
-            max-height: 160px;
+            max-height: 180px;
             overflow-y: scroll;
             background-color: var(--textColor);
             border: 1px solid var(--detailsColor);
             
             .product{
                 margin: 10px;
-                max-height: 80px;
+                max-height: 110px;
                 max-width: 900px;
                 display: flex;
                 flex-direction: row;
@@ -159,6 +160,7 @@
                     h3{
                         margin: 0;
                         margin-left: 10px;
+                        font-size: 23px;
                     }
 
                     p{
