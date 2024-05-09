@@ -29,6 +29,7 @@
                 <p class="rating">⭐{{productClicked.rating}}</p>
                 <p class="price">Price: $ {{productClicked.price}}</p>
             </div>
+           
             <button @click.left.prevent="addToCart" class="addCart">Add to cart</button>
             
         </div>
@@ -274,12 +275,15 @@
 
             .addCart{
                 width: 80%;
+                max-width: 200px;
                 margin: 10px auto;
                 background-color: var(--detailsColor);
                 border: 1px solid var(--textColor);
                 color: var(--textColor);
-                border-radius: 5px;
+                border-radius: 100px;
                 padding: 5px;
+                text-transform: uppercase;
+    
 
                 transform: scale(1);
                 transition-property: transform;
@@ -289,6 +293,12 @@
                     transform: scale(1.1);
                     transition-property: transform;
                     transition-duration: .2s;
+                }
+
+                &:active{
+                    transform: scale(1.05);
+                    transition-property: transform;
+                    transition-duration: .1s;
                 }
             }
         }

@@ -13,9 +13,13 @@
 </template>
 
 <style lang="scss" scoped>
+    
+
+
     .content{
         display: flex;
         height: calc(100dvh - 99px);
+
         div{
             margin: auto 0;
             margin-right: auto;

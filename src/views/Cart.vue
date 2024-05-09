@@ -7,15 +7,12 @@
                     <h2>{{product.title}}</h2>
                     <p>$ {{ product.price }}</p>
                 </div>
-                
+                <button class="cartRemove btn" @click="() => removeFromCart(product)"> x</button>
             </div>
         </div>
 
         <div class="purchaseSummary">
-            <h1>Payment</h1>
-            <h3 v-for="product in productsOnCart" :key="product.title">
-                {{product.title}} -> $ {{product.price}}
-            </h3>
+            <h1>Payment</h1>       
             <h2>Total: $ {{ purchasePrice }}</h2>
         </div>
     </div>
@@ -31,12 +28,19 @@ export default {
         const purchasePrice = ref(0)
 
 
+
         productsOnCart.value.forEach(product => {
             purchasePrice.value += product.price
         });
 
 
-        return { productsOnCart, purchasePrice }
+        const removeFromCart = (target) => {
+            props.productList.splice(props.productList.indexOf(target), 1)
+            console.log(props.productList)
+        }
+
+
+        return { productsOnCart, purchasePrice, removeFromCart }
     }
 }
 </script>
@@ -47,6 +51,7 @@ export default {
         flex-direction: row;
         justify-content: space-between;
     }
+
     .productList{
         width: calc(70% - 20px);
         max-width: 900px;
@@ -60,7 +65,14 @@ export default {
             background-color: var(--backgroundColor);
             margin: 5px 10px;
             border: 1px solid var(--detailsColor);
-            
+            position: relative;
+            .cartRemove{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 40px;
+            }
+
             div{
                 width: 100%;
                 
@@ -94,16 +106,26 @@ export default {
             }
         }
     }
+
     .purchaseSummary{
-        background-color: var(--textColor);
-        color: var(--detailsColor);
-        width: calc(30% - 20px);
+        width: calc(40% - 20px);
         max-width: 400px;
+        height: fit-content;
+
+        border-bottom: 5px solid var(--textColor);
+        border-right: 5px solid var(--textColor);
+        border-top: 5px solid var(--detailsColor);
+        border-left: 5px solid var(--detailsColor);
+        
         margin: 10px;
         text-align: center;
-        height: fit-content;
+        
         h1{
+            margin: 10px auto;
+            width: 90%;
             text-transform: uppercase;
+            border-bottom: 1px solid var(--textColor);
         }
+
     }
 </style>
