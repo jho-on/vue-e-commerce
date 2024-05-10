@@ -2,7 +2,8 @@
     <div class="content">
         <div>
             <h1>Lorem ipsum dolor sit amet.</h1>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis, mollitia!</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                 Corporis, mollitia!</p>
             <p>Lorem, ipsum.</p>
         </div>
 
@@ -14,8 +15,6 @@
 
 <style lang="scss" scoped>
     
-
-
     .content{
         display: flex;
         height: calc(100dvh - 99px);
@@ -29,9 +28,10 @@
         }
 
         h1{
-            font-size: 80px;
+            font-size: clamp(3vw, 80px, 15vw);
             margin: 0;
             max-width: 90%;
+            animation: slideFromLeft .7s ease-out;
         }
 
         p{
@@ -39,30 +39,34 @@
             margin: 0;
             margin-left: 20px;
             max-width: 80%;
+            animation: slideFromLeft .8s ease-out;
         }
         
         p + p{
             font-size: 16px;
             opacity: .8;
             margin-left: 22px;
+            animation: slideFromLeft .85s ease-out;
         }
 
         img{
             width: 50%;
+            max-width: 500px;
         }
     }
     
-    footer{
-        width: 100dvw;
-        padding: 10px 40px;
-        background-color: var(--textColor);
-        display: flex;
-        justify-content: space-evenly;
-        flex-direction: row;
-        position: absolute;
-        bottom: 0;
+    @keyframes slideFromLeft {
+        from{
+            transform: translateX(-200px);
+        }
+        to{
+            transform: translateX(0px);
+        }
     }
-    
+
+
+
+
     @media(max-width:600px){
         .content{
             img{

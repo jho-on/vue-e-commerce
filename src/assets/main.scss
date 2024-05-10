@@ -4,7 +4,7 @@
     --detailsColor: #48e5c2;
 }
 
-*{
+*, *::before, *::after{
     box-sizing: border-box;
     font-size: 20px;
     

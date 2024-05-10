@@ -35,10 +35,6 @@
         </div>
     </div>
 
-    <div class="notFound" v-else-if="productName != ''">
-        <h1> ): Product not found :(</h1>
-    </div>
-
 </template>
 
 <script >
@@ -115,8 +111,10 @@
         padding: 20px;
         margin-bottom: 15px;
         position: relative;
+        
 
         input[type="text"]{
+            animation: slideDown 1s ease-out;
             background-color: var(--backgroundColor);
             border: 2px solid var(--detailsColor);
             color: var(--textColor);
@@ -183,13 +181,6 @@
         }
     }
 
-    .notFound{
-        text-align: center;
-        h1{
-            font-size: 50px;
-        }
-    }
-
     .productWrapper{
         display: flex;
         margin: 10px;
@@ -216,46 +207,6 @@
                 text-transform: capitalize;
             }   
 
-            .imageGallery{
-                display: flex;
-                flex-direction: row;
-                position: relative;
-                padding: 0px 10px;
-                justify-content: center;
-
-                .imageBtn{
-                    position: absolute;
-                    height: 400px;
-                    background-color: transparent;
-                    color: var(--detailsColor);
-                    font-size: 27px;
-                    border: none;
-                    filter: brightness(100%);
-
-                    &:hover{
-                        background-color: var(--textColor);
-                        opacity: .7;
-                        filter: brightness(120%);
-                    }
-                }
-
-                .previous{
-                    left: 10px;
-                }
-
-                .next{
-                    right: 10px;
-                }
-                .images{
-                    width: 100%;
-                    img{
-                        width: 100%;
-                        height: 400px;
-                    }
-                }
-                
-            }
-
             .desc{
                 text-align: justify;
                 padding: 20px 15px;
@@ -272,40 +223,123 @@
                     
                 }
             }
+        }
+    }
 
-            .addCart{
-                width: 80%;
-                max-width: 200px;
-                margin: 10px auto;
-                background-color: var(--detailsColor);
-                border: 1px solid var(--textColor);
-                color: var(--textColor);
-                border-radius: 100px;
-                padding: 5px;
-                text-transform: uppercase;
-    
+    .productWrapper .imageGallery{
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        padding: 0px 10px;
+        justify-content: center;
 
-                transform: scale(1);
-                transition-property: transform;
-                transition-duration: .3s;
+        .imageBtn{
+            position: absolute;
+            height: 400px;
+            background-color: transparent;
+            color: var(--detailsColor);
+            font-size: 27px;
+            border: none;
+            filter: brightness(100%);
 
-                &:hover{
-                    transform: scale(1.1);
-                    transition-property: transform;
-                    transition-duration: .2s;
-                }
-
-                &:active{
-                    transform: scale(1.05);
-                    transition-property: transform;
-                    transition-duration: .1s;
-                }
+            &:hover{
+                background-color: var(--textColor);
+                opacity: .7;
+                filter: brightness(120%);
             }
         }
 
+        .previous{
+            left: 10px;
+        }
+
+        .next{
+            right: 10px;
+        }
+
+        .images{
+            width: 100%;
+            img{
+                width: 100%;
+                height: 400px;
+            }
+        }
         
     }
 
+    .productWrapper .addCart{
+        width: 80%;
+        max-width: 200px;
+        margin: 10px auto;
+        background-color: var(--detailsColor);
+        border: 1px solid var(--textColor);
+        color: var(--textColor);
+        border-radius: 100px;
+        padding: 5px;
+        text-transform: uppercase;
+        position: relative;
+
+        transform: scale(1);
+        transition-property: transform;
+        transition-duration: .3s;
+
+        &:hover{
+            transform: scale(1.1);
+            transition-property: transform;
+            transition-duration: .2s;
+            background-color: var(--textColor);
+            color: var(--detailsColor);
+
+            &::before{
+                content: '';
+                width: calc(100%);
+                height: calc(100%);
+                bottom: 0;
+                left: 0;
+
+                display: block;
+                position: absolute;
+                border-radius: 100px;
+                animation: alternate infinite glow 1s ease-in-out;
+            }
+        }
+        &:active{
+            transform: scale(1.05);
+            transition-property: transform;
+            transition-duration: .1s;
+        }
+    }
+
+    @keyframes glow {
+        from{
+            box-shadow: none;
+        }
+        to{
+            box-shadow: 0 0 10px px var(--detailsColor);
+        }
+    }
+
+    @keyframes fade{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+    @keyframes slideDown {
+        from{
+            opacity: 0;
+            transform: translateY(-85px);
+            z-index: -1;
+        }
+        to{
+            opacity: 1;
+            transform: translateY(0px);
+            z-index: 0;
+
+        }
+    }
 
     @media(max-width: 500px){
         .searchBox{

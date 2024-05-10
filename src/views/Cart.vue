@@ -1,6 +1,6 @@
 <template> 
     <div class="wrapper">
-        <div class="productList">
+        <div class="productList" v-if="productsOnCart.length">
             <div class="product" v-for="product in productsOnCart" :key="product">
                 <img :src="product.thumbnail">
                 <div>
@@ -28,15 +28,20 @@ export default {
         const purchasePrice = ref(0)
 
 
-
-        productsOnCart.value.forEach(product => {
+        const getFullPrice = () =>{
+            purchasePrice.value = 0
+            productsOnCart.value.forEach(product => {
             purchasePrice.value += product.price
-        });
+            });
+        }
+
+        getFullPrice()
 
 
         const removeFromCart = (target) => {
             props.productList.splice(props.productList.indexOf(target), 1)
             console.log(props.productList)
+            getFullPrice()
         }
 
 
@@ -127,5 +132,17 @@ export default {
             border-bottom: 1px solid var(--textColor);
         }
 
+    }
+
+    @media(max-width: 500px){
+        .wrapper{
+            flex-direction: column;
+        }
+        .productList{
+            width: calc(100% - 20px);
+        }
+        .purchaseSummary{
+            width: calc(100% - 20px);
+        }
     }
 </style>

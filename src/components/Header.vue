@@ -66,14 +66,17 @@ function saveProfilePic(event){
 }   
 
 function testValid(target, validationRule, validationResponse){
+    if(validationResponse == null){
+        return
+    }
     if(target.match(validationRule)){
-            validationResponse.classList.remove("invalid")
-            validationResponse.classList.add("valid")
-            return true
-        }else{
-            validationResponse.classList.remove("valid")
-            validationResponse.classList.add("invalid")
-        }
+        validationResponse.classList.remove("invalid")
+        validationResponse.classList.add("valid")
+        return true
+    }else{
+        validationResponse.classList.remove("valid")
+        validationResponse.classList.add("invalid")
+    }
 }
 
 watchEffect(() => {
@@ -87,13 +90,15 @@ watchEffect(() => {
 
         test = testValid(password.value, /[!@#\$%\&*\)\(\+=._-]/g, special.value)
 
-        if(password.value.length >= 8){
-            test = true
-            characters.value.classList.remove("invalid")
-            characters.value.classList.add("valid")
-        }else{
-            characters.value.classList.remove("valid")
-            characters.value.classList.add("invalid")
+        if(characters.value != null){
+            if(password.value.length >= 8){
+                test = true
+                characters.value.classList.remove("invalid")
+                characters.value.classList.add("valid")
+            }else{
+                characters.value.classList.remove("valid")
+                characters.value.classList.add("invalid")
+            }
         }
     }
 
@@ -129,6 +134,7 @@ function submitLogin(){
     }
     
     header{
+        z-index: 3;
         display: flex;
         flex-direction: row;
         align-items: center;
